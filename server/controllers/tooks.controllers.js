@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
-import Took from '../models/Took.js';
 import tookSchema from '../models/Took.js';
-
+import Took from '../models/Took.js';
 export const getTooks = async (req, res) => {
 
   tookSchema.find()
@@ -22,20 +21,44 @@ export const searchTook = async (req, res) => {
 
 export const createTook = async (req, res) => {
 
-  const { account_id, content_took, display_name } = req.body;
+  const { account_id, content_took, display_name } = req.body; // Esto se llama destructuring
+
+  const took = new Took({ ...req.body });
 
   console.log(account_id);
   console.log(content_took);
   console.log(display_name);
 
-  //var took = mongoose.model('Took',tookSchema,'tooks');
+  let response_error = { message: 'missing fields' };
 
-  const took = new Took({ ...req.body });
-  const insertedTook = await took.save();
+  console.log(Object.keys(req.body));
 
 
-  return res.status(201).json({ message: 'took_created', insertedTook });
-  // return res.status(201).json({message:'took_created',details:{account_id,content_took,display_name}});
+
+
+  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+
+    console.log(req.body);
+
+
+
+
+    return res.status(400).json({ message: 'missing fields' })
+  }
+
+
+
+
+  try {
+
+    //const insertedTook = await took.save();
+  } catch (error) {
+    return res.status(500).json({ message: 'Error creating took', details: { error } })
+  }
+
+
+  return res.status(201).json({ message: 'took_created', took });
+
 
 }
 
@@ -50,7 +73,7 @@ export const updateTook = async (req, res) => {
   }
 
 
-  took = await tookSchema.findByIdAndUpdate(req.params.id,{content_took:req.body.content_took});
+  took = await tookSchema.findByIdAndUpdate(req.params.id, { content_took: req.body.content_took });
   if (took === null) {
     res.status(404).json({ message: `Took with requested id ${req.body._id} was not found.` })
   }
@@ -70,7 +93,7 @@ export const deleteTook = async (req, res) => {
 
   took = await tookSchema.findByIdAndDelete(req.params.id);
   if (took === null) {
-    res.status(404).json({ message: `Took with requested id ${req.body._id} was not found.` })
+    res.status(404).json({ message: `Took with requested id ${req.params.id} was not found.` })
   }
   else {
     res.status(204).json({ took });
