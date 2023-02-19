@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import TweetCompo from "./TweetCompo";
+import TookCompo from "./TweetCompo";
 
 
 export default function ListTooksCompo() {
@@ -34,7 +34,7 @@ export default function ListTooksCompo() {
 
                 {
                     tooks.map(data => {
-                        return <TweetCompo
+                        return <TookCompo
                             key={data._id}
                             account_displayname={data.display_name}
                             account_id={data.account_id}

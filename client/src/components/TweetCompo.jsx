@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './TweetCompo.css';
 
-export default function TweetCompo(props) {
+export default function TookCompo(props) {
 
     const [counterRetweets, setcounterRetweets] = useState(0);
     const [counterLikes, setCounterLikes] = useState(0);
@@ -91,7 +91,16 @@ export default function TweetCompo(props) {
                 {/* <p>282 Reproducciones</p> */}
             </div>
             <div className="counter-likes-container">
-                <span>{counterLikes} Likes</span>
+            {
+                counterLikes === 0 ? 
+                <>
+
+                </>
+                :
+                <span>{counterLikes} Likes</span>  
+                
+            }
+                
             </div>
             <div className="tweet-actions">
 
