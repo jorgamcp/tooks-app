@@ -51,13 +51,14 @@ export const createTook = async (req, res) => {
 
   try {
 
-    //const insertedTook = await took.save();
+    const insertedTook = await took.save();
+    return res.status(201).json({ message: 'took_created', insertedTook });
   } catch (error) {
     return res.status(500).json({ message: 'Error creating took', details: { error } })
   }
 
 
-  return res.status(201).json({ message: 'took_created', took });
+
 
 
 }

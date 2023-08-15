@@ -15,6 +15,16 @@ const tookSchema = new mongoose.Schema(
         content_took:{
             type:String,
             required:true
+        },
+        counterRetooks:{
+            type:Number,
+            required:true,
+            default:0
+        },
+        counterLikes:{
+            type:Number,
+            required:true,
+            default:0
         }
 
     });

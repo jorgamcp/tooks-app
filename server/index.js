@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { app } from './app.js';
 const PORT = process.env.PORT || 3001;
 
+mongoose.set("strictQuery", false);
 
 mongoose.connect('mongodb://127.0.0.1:27017/TooksAppDB').then(() => {
     console.log('Conectado a mongodb')
